@@ -6,72 +6,80 @@ int main() {
     setlocale(LC_ALL, "");
     int recu;
     recu = 1;
+
+    int transistor, piezas, total, producto, mes, prod, posicion1, posicion2, val1, val2;
+    float sumprod = 0, prom;
+    int nuevCantidad = 0;
+    bool productoExiste = false;
+    char nuevoNombre[300];
+    int encapsulado, cantrans, tipotrans, espt, esptcolum, continente, pc, mcanttransis[5][5] = {
+            {20, 10, 50, 6666, 660},
+            {30, 30, 30, 30,   30,},
+            {40, 40, 40, 40,   40,},
+            {50, 50, 50, 50,   50,},
+            {20, 20, 20, 20,   20},
+    };
+    float mespecificaciones[25][5] = {
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+            {100, 20, 3, 3, 'NPN'},
+    },
+            ventas[1000] = {},
+    //cost de envio
+    vcostenv[5] = {100.50,
+                   200.50,
+                   300.50,
+                   400.50,
+                   500.50};
+    char op, buskencapsulado[15],
+    //
+    mencaptran[5][5][15] = {
+            {{'t', 'o', '1'}, {'t', 'o', '2'}, {'t', 'o', '3'}, {'t', 'o', '4'}, {'t', 'o', '5'},},
+            {{'a', 'o', '2'}, {'a', 'o', '3'}, {'a', 'o', '4'}, {'a', 'o', '5'}, {'a', 'o', '6'},},
+            {{'b', 'o', '3'}, {'b', 'o', '4'}, {'t', 'o', '5'}, {'t', 'o', '6'}, {'t', 'o', '7'},},
+            {{'c', 'o', '4'}, {'c', 'o', '5'}, {'t', 'o', '6'}, {'t', 'o', '7'}, {'t', 'o', '8'},},
+            {{'d', 'o', '5'}, {'d', 'o', '6'}, {'t', 'o', '7'}, {'t', 'o', '8'}, {'t', 'o', '9'},},
+    },
+    //Abreviación del Tipo de Transistor
+    vnomtran[5][10] = {
+            {'a', 'a'},
+            {'a', 'b'},
+            {'a', 'c'},
+            {'a', 'd'},
+            {'a', 'e'},
+    },
+    //nombres de los contientes
+    vcontinom[5][10] = {
+            {'a', 's', 'i', 'a'},
+            {'a', 'm', 'e', 'r', 'i', 'c', 'a'},
+            {'a', 'f', 'r', 'i', 'c', 'a'},
+            {'o', 'c', 'e', 'a', 'n', 'i', 'a'},
+            {'e', 'u', 'r', 'o', 'p', 'a',},
+    };;
+
     do {
-        int transistor, piezas, total, producto, mes, prod, posicion1, posicion2, val1, val2;
-        float sumprod = 0, prom;
-        int  encapsulado, cantrans, tipotrans, espt, esptcolum, continente, pc,mcanttransis[5][5]={
-                {20,20,20,20,20},
-                {30,30,30,30,30,},
-                {40,40,40,40,40,},
-                {50,50,50,50,50,},
-                {20,20,20,20,20},
-        };
-        float mespecificaciones[25][5] ={
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-                {100,20,3,3, 'NPN'},
-        },
-        //cost de envio
-        vcostenv[5] = {100.50, 200.50, 300.50, 400.50, 500.50};
-        char op, buskencapsulado[15],
-        //
-        mencaptran[5][5][15] = {
-                {{'t', 'o', '1'}, {'t', 'o', '2'}, {'t', 'o', '3'}, {'t', 'o', '4'}, {'t', 'o', '5'},},
-                {{'a', 'o', '2'}, {'a', 'o', '3'}, {'a', 'o', '4'}, {'a', 'o', '5'}, {'a', 'o', '6'},},
-                {{'b', 'o', '3'}, {'b', 'o', '4'}, {'t', 'o', '5'}, {'t', 'o', '6'}, {'t', 'o', '7'},},
-                {{'c', 'o', '4'}, {'c', 'o', '5'}, {'t', 'o', '6'}, {'t', 'o', '7'}, {'t', 'o', '8'},},
-                {{'d', 'o', '5'}, {'d', 'o', '6'}, {'t', 'o', '7'}, {'t', 'o', '8'}, {'t', 'o', '9'},},
-        },
-        //Abreviación del Tipo de Transistor
-        vnomtran[5][10] = {
-                {'a', 'a'},
-                {'a', 'b'},
-                {'a', 'c'},
-                {'a', 'd'},
-                {'a', 'e'},
-        },
-        //nombres de los contientes
-        vcontinom[5][10] = {
-                {'a', 's', 'i', 'a'},
-                {'a', 'm', 'e', 'r', 'i', 'c', 'a'},
-                {'a', 'f', 'r', 'i', 'c', 'a'},
-                {'o', 'c', 'e', 'a', 'n', 'i', 'a'},
-                {'e', 'u', 'r', 'o', 'p', 'a',},
-        };;
-
-
         printf("\tAntes de iniciar el programa, captura los siguientes datos...\n\n");
         printf("Ingresa maximo 5 continentes y su costo de envio");
         //NOMBRE DE CONTINENTE Y DE TIPO DE TRANSISTOR
@@ -152,6 +160,7 @@ int main() {
         printf("\nE. Obtener costo de envio a algun continente");
         printf("\nF. Consulta de datasheet");
         printf("\nG. Eliminar componentes ");
+        printf("\nI. Realizar venta");
         printf("\n\nIngresa la opción deseada :");
         scanf("%s", &op);
         switch (op) {
@@ -161,23 +170,51 @@ int main() {
                 printf("\n\nMatriticula del Transistor que quieres consultar : ");
                 scanf("%s", &buskencapsulado);
                 for (int i = 0; i < 5; ++i) {
-//                    for (int j = 0; j < ; ++j) {
-                        printf("\nTransistores de Tipo %s:  ", vnomtran[i]);
-//                    }
+                    for (int j = 0; j < 5; ++j) {
+                        if (strcmp(reinterpret_cast<const char *>(mencaptran[i][j]), buskencapsulado) == 0) {
+                            int fila = i;
+                            int columna = j;
+                            printf(" Transistor: %s", mencaptran[i][j]);
+                            printf(" piezas totales: %d ", mcanttransis[fila][columna]);
+                            productoExiste = true;
+                        }
+
+                    }
                 }
-
-//                for (val1 = 1; val1 <= 5; val1++) {
-//                    for (val2 = 1; val2 <= 5; val2++) {
-//                        if (mencaptran[val1 - 2][val2 - 2] == buskencapsulado)
-//                            posicion1 = val1 - 2;
-//                        posicion2 = val2 - 2;
-//                    }
-//                    printf("\n\n\tObteniendo cantidad total de piezas...\n");
-//                    printf("\n%s / %s, Catidad Total = %d ", vnomtran[posicion1], mencaptran[posicion1][posicion2],
-//                           mcanttransis[posicion1][posicion2]);
-//                }
+                if (!productoExiste)
+                    printf("Producto no encontrado");
                 break;
+            case 'b':
+            case 'B':
 
+                printf("\n\nMatriticula del Transistor que quieres cambiar : ");
+                scanf("%s", &buskencapsulado);
+
+                for (int i = 0; i < 5; ++i) {
+                    for (int j = 0; j < 5; ++j) {
+                        if (strcmp(reinterpret_cast<const char *>(mencaptran[i][j]), buskencapsulado) == 0) {
+                            printf("\n\n Nuevo nombre  : ");
+                            scanf("%s", &nuevoNombre);
+                            printf("\n\n Nueva cantidad  : ");
+                            scanf("%d", &nuevCantidad);
+
+                            int fila = i;
+                            int columna = j;
+                            for (int k = 0; k < strlen(nuevoNombre); ++k) {
+                                mencaptran[fila][columna][k] = nuevoNombre[k];
+                            }
+
+                            mcanttransis[fila][columna] = nuevCantidad;
+
+                            printf("\n\n x1: %s", mencaptran[fila][columna]);
+                            productoExiste = true;
+
+                        }
+                    }
+                }
+                if (!productoExiste)
+                    printf("Producto no encontrado");
+                break;
             case 'c':
             case 'C':
                 for (producto = 1; producto <= 25; producto = producto + 1) {
@@ -192,6 +229,10 @@ int main() {
                     prom = sumprod / 12;
                     printf("\nEl promedio anual de la producción %d es %.2f", producto, prom);
                 }
+                break;
+            case 'i':
+            case 'I':
+
                 break;
 
         }
