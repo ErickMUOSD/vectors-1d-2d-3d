@@ -230,6 +230,28 @@ int main() {
                     printf("\nEl promedio anual de la producción %d es %.2f", producto, prom);
                 }
                 break;
+            case 'g':
+            case 'G':
+                printf("\n\nMatriticula del Transistor que quieres eliminar : ");
+                scanf("%s", &buskencapsulado);
+                for (int i = 0; i < 5; ++i) {
+                    for (int j = 0; j < 5; ++j) {
+                        if (strcmp(reinterpret_cast<const char *>(mencaptran[i][j]), buskencapsulado) == 0) {
+                            for (int m = 0; m < strlen(mencaptran[i][j]); ++m) {
+                                memset(&mencaptran[i][j], 0, sizeof(mencaptran[i][j]));
+
+                            }
+
+                            productoExiste = true;
+                                mcanttransis[i][j] =  " ";
+
+                        }
+
+                    }
+                }
+                if (!productoExiste)
+                    printf("Producto no encontrado");
+                break;
             case 'i':
             case 'I':
 
