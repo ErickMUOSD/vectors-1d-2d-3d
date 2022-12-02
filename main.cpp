@@ -44,9 +44,10 @@ int main() {
 //        NOMBRE DE ENCAP Y CANTIDAD DE ENCAP
         for (tipotrans = 0; tipotrans < 5; tipotrans++) {
             printf("\n\n\nAbreviación del Tipo de Transistor %d:", tipotrans);
+            scanf("%s",&vnomtran[tipotrans]);
             for (encapsulado = 0; encapsulado < 5; encapsulado++) {
                 printf("\n\nEncapsulado del Transitor tipo %d:", encapsulado);
-                scanf("%s", &vnomtran[tipotrans]);
+                scanf("%s",&mencaptran[tipotrans][encapsulado]);
                 printf("Piezas del Encapsulado %d:", encapsulado);
                 scanf("%d", &mcanttransis[tipotrans][encapsulado]);
 
@@ -56,6 +57,20 @@ int main() {
         }
         //DECLARAR ESPECIFICACIONES
 
+//DECLARAR ESPECIFICACIONES
+
+        printf("\n\n\n\n\n\nEn Base a la Siquiente Estructura Genera la Matriz de Especificaciones");
+        printf("\nNPN es 0 y PNP es 1");
+        printf("\n\n \t\tCosto\t\tTemp A.\t\tVoltaje\t\tCorriente\t\tNPN o PNP");
+        printf("\nUTJ 1\nUTJ 2\nUTJ 3\nUTJ 4\nUTJ 5\nBJT 6\nBJT 7\nBJT 8\nBJT 9\nBJT 10\nJFET 11\nJFET 12\nJFET 13\nJFET 14\nJFET 15\nFET 16\nFET 17\nFET 18\nFET 19\nFET 20\nFOT 21\nFOT 22\nFOT 23\nFOT 24\nFOT 25");
+        for(espt=1;espt<=25;espt++)
+        {
+            for (esptcolum=1;esptcolum<=5;esptcolum++)
+            {
+                printf("\n\n\nFila %d / Dato %d:", espt, esptcolum);
+                scanf("%f",&mespecificaciones[espt-1][esptcolum-1]);
+            }
+        }
 
 
         // DESPLIEGUE DE VECTORES
