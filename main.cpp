@@ -230,6 +230,24 @@ int main() {
                     printf("\nEl promedio anual de la producción %d es %.2f", producto, prom);
                 }
                 break;
+            case 'e':
+            case 'E':
+
+                printf("\n\n Nombre del continente  : ");
+                scanf("%s", nuevoNombre);
+
+                for (int i = 0; i < 5; ++i) {
+                    if (strcmp(reinterpret_cast<const char *>(vcontinom[i]), nuevoNombre) == 0) {
+
+                        printf("\n\n Nombre del continente:: %s", vcontinom[i]);
+                        printf("\n\n costo: %f", vcostenv[i]);
+                        productoExiste = true;
+                    }
+                }
+                if (!productoExiste)
+                    printf("Continente |no encontrado");
+                break;
+
             case 'g':
             case 'G':
                 printf("\n\nMatriticula del Transistor que quieres eliminar : ");
@@ -241,11 +259,14 @@ int main() {
                                 memset(&mencaptran[i][j], 0, sizeof(mencaptran[i][j]));
 
                             }
-
                             productoExiste = true;
-                                mcanttransis[i][j] =  " ";
-
+//                                mcanttransis[i][j] =  " ";
+                            for (int k = j; k < 4; ++k) {
+                                mcanttransis[i][k] = mcanttransis[i][k + 1];
+                            }
+                            mcanttransis[i][4] = 0;
                         }
+
 
                     }
                 }
