@@ -10,7 +10,7 @@ int main() {
     int transistor, piezas, total, producto, mes, prod, posicion1, posicion2, val1, val2;
     float sumprod = 0, prom;
     int nuevCantidad = 0;
-    bool productoExiste = false;
+    bool productoExiste = false, cantidadExcedida = false;
     char nuevoNombre[300];
     int encapsulado, cantrans, tipotrans, espt, esptcolum, continente, pc, mcanttransis[5][5] = {
             {20, 10, 50, 6666, 660},
@@ -46,7 +46,15 @@ int main() {
             {100, 20, 3, 3, 'NPN'},
             {100, 20, 3, 3, 'NPN'},
     },
-            ventas[1000] = {},
+            precioEncapsulado[5][5] = {
+            {5, 10, 20, 30, 40},
+            {5, 10, 20, 30, 40},
+            {5, 10, 20, 30, 40},
+            {5, 10, 20, 30, 40},
+            {5, 10, 20, 30, 40},
+    },
+            ventas = 0,
+            calcularVenta = 0,
     //cost de envio
     vcostenv[5] = {100.50,
                    200.50,
@@ -62,6 +70,7 @@ int main() {
             {{'c', 'o', '4'}, {'c', 'o', '5'}, {'t', 'o', '6'}, {'t', 'o', '7'}, {'t', 'o', '8'},},
             {{'d', 'o', '5'}, {'d', 'o', '6'}, {'t', 'o', '7'}, {'t', 'o', '8'}, {'t', 'o', '9'},},
     },
+
     //Abreviación del Tipo de Transistor
     vnomtran[5][10] = {
             {'a', 'a'},
@@ -91,14 +100,15 @@ int main() {
 //        }
         //NOMBRE DE ENCAP Y CANTIDAD DE ENCAP
 //        for (tipotrans = 0; tipotrans < 5; tipotrans++) {
-////            printf("\n\n\nAbreviación del Tipo de Transistor %d:", tipotrans);
-////            scanf("%s", &vnomtran[tipotrans - 1]);
+//            printf("\n\n\nAbreviación del Tipo de Transistor %d:", tipotrans);
 //            for (encapsulado = 0; encapsulado < 5; encapsulado++) {
 ////                printf("\n\nEncapsulado del Transitor tipo %d:", encapsulado);
-////                scanf("%s", &mencaptran[tipotrans - 1][encapsulado - 1]);
+////                scanf("%s", &vnomtran[tipotrans]);
 ////                printf("Piezas del Encapsulado %d:", encapsulado);
-////                scanf("%d", &mcanttransis[tipotrans - 1][encapsulado - 1]);
-//
+////                scanf("%d", &mcanttransis[tipotrans][encapsulado]);
+////
+////                printf("\\n\\Precio del encapsulado:");
+////                scanf("%f", &precioEncapsulado[tipotrans - 1][tipotrans - 1]);
 //            }
 //        }
         //DECLARAR ESPECIFICACIONES
@@ -217,18 +227,9 @@ int main() {
                 break;
             case 'c':
             case 'C':
-                for (producto = 1; producto <= 25; producto = producto + 1) {
-                    printf("\n\n\n\t Los productos son: 1- T.UTJ  2- T.BJT  3- T.JFET  4- T.FET  5- T.FOT");
-                    printf("\n\n Producto %d", producto);
-                    sumprod = 0;
-                    for (mes = 1; mes <= 12; mes = mes + 1) {
-                        printf("\nProducción del mes %d :", mes);
-                        scanf("%f", &prod);
-                        sumprod = sumprod + prod;
-                    }
-                    prom = sumprod / 12;
-                    printf("\nEl promedio anual de la producción %d es %.2f", producto, prom);
-                }
+                sumprod = ventas / 12;
+                printf("\n\n\t\tPromedio de Ventas Anuales");
+                printf("\n\nEl promedio de ventas anuales es de: %f", sumprod);
                 break;
             case 'e':
             case 'E':
@@ -247,7 +248,18 @@ int main() {
                 if (!productoExiste)
                     printf("Continente |no encontrado");
                 break;
+            case 'f':
+            case 'F':
+                printf("\n\n\n\t\t  Matriz de Encapsulados");
+                printf("\n\n  \tTipo de transistor \t\t\tEncapsulados\n");
+                for (tipotrans = 1; tipotrans <= 5; tipotrans++) {
+                    printf("\nTransistores de Tipo %s:  ", vnomtran[tipotrans - 1]);
 
+                    for (encapsulado = 1; encapsulado <= 5; encapsulado++) {
+                        printf("\t %s   ", mencaptran[tipotrans - 1][encapsulado - 1]);
+                    }
+                }
+                break;
             case 'g':
             case 'G':
                 printf("\n\nMatriticula del Transistor que quieres eliminar : ");
@@ -275,7 +287,39 @@ int main() {
                 break;
             case 'i':
             case 'I':
+                printf("\n\nMatriticula del Transistor que quieres vender : ");
+                scanf("%s", &buskencapsulado);
 
+                for (int i = 0; i < 5; ++i) {
+                    for (int j = 0; j < 5; ++j) {
+                        if (strcmp(reinterpret_cast<const char *>(mencaptran[i][j]), buskencapsulado) == 0) {
+
+                            int cantidad;
+                            printf("\\n\\n Cantidad del transistor que quieres vender : ");
+                            scanf("%d", &cantidad);
+
+                            if (cantidad <= mcanttransis[i][j]) {
+                                printf("\n\n Nombre: %s", mencaptran[i][j]);
+                                printf("\n\n Numero de piezas %d", cantidad);
+                                printf("\n\n costo: %f", precioEncapsulado[i][j]);
+                                calcularVenta = precioEncapsulado[i][j] * cantidad;
+                                printf("\n\n Total: %f", calcularVenta);
+                                mcanttransis[i][j] = mcanttransis[i][j] - cantidad;
+                                ventas += calcularVenta;
+
+                            } else
+                                cantidadExcedida = true;
+
+                            productoExiste = true;
+                        }
+
+                    }
+                }
+                if (cantidadExcedida)
+                    printf("Cantidad excedida");
+                if (!productoExiste)
+                    printf("Producto no encontrado");
+                break;
                 break;
 
         }
